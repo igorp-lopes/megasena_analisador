@@ -1,7 +1,10 @@
 import requests
 import pathlib
+import os
+from zipfile import ZipFile
 
-def get_data():
+
+def obtain_data():
 
     rootDir = pathlib.Path.cwd()  # Obtemos o diretório principal do programa
 
@@ -14,3 +17,11 @@ def get_data():
 
     with open(filesDir, "wb") as data_zipped:
         data_zipped.write(response.content)  # Baixamos o zip na pasta files
+
+        # Descompactamos os dados
+        zipObj = ZipFile(filesDir, 'r')
+        zipObj.extract('d_mega.htm', 'files')
+
+    os.remove(filesDir) # Limpamos o diretório dos arquivos desnecessários
+
+    return
