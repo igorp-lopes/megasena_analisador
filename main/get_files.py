@@ -52,16 +52,37 @@ def should_update():
         with open(lastupdate_path, 'r+') as file:
             data_update = file.read()  # Obtemos do arquivo txt a data da última atualização
 
-            # Caso não haja registro da última atualização
-            if data_update == '':
-                data_update = today
-                temp = data_update.strftime("%d/%m/%Y,")
-                # Salvamos em um arquivo txt a data atual como a data da última atualização
-                file.write(temp)
-            else:
-                # Convertemos a data em string para datetime
-                data_update = datetime.datetime.strptime(
-                    data_update, "%d/%m/%Y,").date()
+            # Convertemos a data em string para datetime
+            data_update = datetime.datetime.strptime(
+                data_update, "%d/%m/%Y,").date()
+
+            # Calculamos a diferença de tempo da última atualização para o dia atual
+            days_since_update = (data_update - today).days
+
+            if days_since_update > 7:  # Testamos se a última atualização foi a mais de 7 dias
+                print(
+                    f"O banco de dados foi atualizado pela última vez há {days_since_update} dias")
+                print("Gostaria de atualiza-lo?")
+
+                while(True):
+
+                    try:
+                        print('(1) - Sim\n(2) - Não')
+                        command = input()
+                        assert((command == '1') or (command == '2'))
+                    except:
+                        print('Comando inválido, tente novamente')
+                    else:
+                        break
+
+                if command == '1':  # Caso queiramos atualizar
+                    obtain_data()  # Atualizamos o banco de dados
+                    # Convertemos a data para o formato de string
+                    today = today.strftime("%d/%m/%Y,")
+                    file.seek(0)
+                    file.truncate(0)  # Apagamos o conteúdo do arquivo
+                    # Salvamos em um arquivo txt a data atual como a data da última atualiza
+                    file.write(today)
 
     except IOError as erro:  # Caso no qual não há arquivo com a data da última atualização
 
