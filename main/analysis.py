@@ -20,14 +20,22 @@ def find_recurrency(option, dataframe):
     percentage = lambda x: (x/tot) * 100 # Lambda usado para calcular a porcentagem
     df_ocorr['% Total'] = ocurr.apply(percentage) # Criamos a coluna das porcentagens
 
+    if option == 'Specific Number':
+        pass
+    
+    else:
+        if option == 'mais frequentes':
+            df_ocorr.sort_values('% Total', inplace = True, ascending = False) # Ordenamos o dataframe em ordem decrescente
+
+        elif option == 'menos frequentes':
+            df_ocorr.sort_values('% Total', inplace = True, ascending = True) # Ordenamos o dataframe em ordem crescente
+
+
+        print(f"Os números {option} são:")
+        for num, ocorr in (df_ocorr.iloc[:6,0]).items():
+            print(f"{num} - foi sorteado {int(ocorr)} vezes\n")
+
     return
-    
-    
 
-    
-df = webscrap.extract_data()
-
-find_recurrency(1,df)
-    
         
 
