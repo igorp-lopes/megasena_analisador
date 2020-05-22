@@ -18,6 +18,22 @@ def display_header():
 
     return
 
+# Função que testa se a entrada é válida
+
+
+def test_valid_input(first_opt, last_opt):
+    command = int(input())  # Recebemos o comando do cmd
+
+    try:
+        # Testamos se o comando é válido
+        assert(first_opt <= command <= last_opt)
+    except:
+        print("\nComando inválido, Tente novamente\n")
+        sleep(3)  # Aguardamos 3 segundos para que o texto possa ser lido
+
+    return command
+
+
 # Função que implementa a interface central
 
 
@@ -39,22 +55,16 @@ def main_interface():
     while(True):
 
         display_menu()
-        command = int(input())  # Recebemos o comando do cmd
+        command = test_valid_input(1, 4)
 
-        try:
-            assert(1 <= command <= 4)  # Testamos se o comando é válido
-        except:
-            print("\nComando inválido, Tente novamente\n")
-            sleep(3)  # Aguardamos 3 segundos para que o texto possa ser lido
-        else:
-            if command == 1:
-                analysis_menu()  # Vamos para o menu de análises
-            elif command == 2:
-                get_files.obtain_data()  # Baixamos os dados mais recentes
-            elif command == 3:
-                pass
-            else:
-                break
+        if command == 1:
+            analysis_menu()  # Vamos para o menu de análises
+        elif command == 2:
+            get_files.obtain_data()  # Baixamos os dados mais recentes
+        elif command == 3:
+            pass
+        elif command == 4:
+            break
 
     return
 
@@ -75,20 +85,16 @@ def analysis_menu():
     while(True):
 
         display_menu()
-        command = int(input())  # Recebemos o comando do cmd
+        command = test_valid_input(1, 2)
 
-        try:
-            assert(1 <= command <= 2)  # Testamos se o comando é válido
-        except:
-            print("\nComando inválido, Tente novamente\n")
-            sleep(3)  # Aguardamos 3 segundos para que o texto possa ser lido
-        else:
-            if command == 1:
-                recurrency_menu()
-            else:
-                break
+        if command == 1:
+            recurrency_menu()
+        elif command == 2:
+            break
 
     return
+
+# Função que implementa o menu de análise de recorrência
 
 
 def recurrency_menu():
@@ -106,22 +112,16 @@ def recurrency_menu():
 
     while(True):
         display_menu()
-        command = int(input())  # Recebemos o comando do cmd
+        command = test_valid_input(1, 4)
 
-        try:
-            assert(1 <= command <= 4)  # Testamos se o comando é válido
-        except:
-            print("\nComando inválido, Tente novamente\n")
-            sleep(3)  # Aguardamos 3 segundos para que o texto possa ser lido
-        else:
-            if command == 1:
-                pass
-            elif command == 2:
-                pass
-            elif command == 3:
-                pass
-            else:
-                break
+        if command == 1:
+            pass
+        elif command == 2:
+            pass
+        elif command == 3:
+            pass
+        elif command == 4:
+            break
 
 ## PROGRAMA ##
 
