@@ -11,8 +11,23 @@ def find_recurrency(option, dataframe):
         temp = ( data.value_counts() ).sort_index() # Contamos as ocorrências de cada número na coluna
         ocurr = ocurr.add(temp,fill_value=0) # Somamos as ocorrências da coluna com as ocorrências das colunas anteriores
 
-    tot = int(ocurr.sum())
+    tot = int(ocurr.sum()) # Soma de todas as ocorrências de cada número
 
+    df_ocorr = pd.DataFrame([]) # Dataframe que guardará as informações de ocorrência de cada número
+
+    df_ocorr['Número de Ocorrências'] = ocurr # Criamos a coluna das ocorrências
+
+    percentage = lambda x: (x/tot) * 100 # Lambda usado para calcular a porcentagem
+    df_ocorr['% Total'] = ocurr.apply(percentage) # Criamos a coluna das porcentagens
+
+    return
+    
+    
+
+    
+df = webscrap.extract_data()
+
+find_recurrency(1,df)
     
         
 
