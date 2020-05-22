@@ -1,5 +1,19 @@
 import pandas as pd
 import webscrap
+from time import sleep
+
+
+def test_valid_input(first_opt, last_opt):
+    command = int(input())  # Recebemos o comando do cmd
+
+    try:
+        # Testamos se o comando é válido
+        assert(first_opt <= command <= last_opt)
+    except:
+        print("\nOpção inválida, Tente novamente\n")
+        sleep(3)  # Aguardamos 3 segundos para que o texto possa ser lido
+
+    return command
 
 def find_recurrency(option, dataframe):
 
@@ -21,8 +35,13 @@ def find_recurrency(option, dataframe):
     df_ocorr['% Total'] = ocurr.apply(percentage) # Criamos a coluna das porcentagens
 
     if option == 'Specific Number':
-        pass
-    
+        print("Qual o número para pesquisar sua ocorrência?\n")
+        num_esc = test_valid_input(1,60)
+
+        df_temp = df_ocorr.iloc[(num_esc-1), 0] # Selecionamos o número desejado no dataframe considerando a indexação começando no 0
+
+        print(f"O número {num_esc} foi sorteado {df_temp} vezes")     
+
     else:
         if option == 'mais frequentes':
             df_ocorr.sort_values('% Total', inplace = True, ascending = False) # Ordenamos o dataframe em ordem decrescente
@@ -30,7 +49,7 @@ def find_recurrency(option, dataframe):
         elif option == 'menos frequentes':
             df_ocorr.sort_values('% Total', inplace = True, ascending = True) # Ordenamos o dataframe em ordem crescente
 
-
+        # Exibimos os 6 números mais/menos recorrentes
         print(f"Os números {option} são:")
         for num, ocorr in (df_ocorr.iloc[:6,0]).items():
             print(f"{num} - foi sorteado {int(ocorr)} vezes\n")
