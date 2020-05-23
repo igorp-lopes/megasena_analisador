@@ -1,40 +1,10 @@
 import get_files
 import webscrap
 import analysis
-import os
-from time import sleep
+from utilities import display_header, test_valid_input
+
 
 ## FUNÇÔES ##
-
-# Função que exibe o cabeçalho
-
-
-def display_header():
-    # Limpa o terminal e mostra o cabeçalho
-    os.system('clear')
-
-    print("\t**********************************************")
-    print("\t***        Analisador Mega Sena            ***")
-    print("\t**********************************************")
-    print("\n")
-
-    return
-
-# Função que testa se a entrada é válida
-
-
-def test_valid_input(first_opt, last_opt):
-    command = int(input())  # Recebemos o comando do cmd
-
-    try:
-        # Testamos se o comando é válido
-        assert(first_opt <= command <= last_opt)
-    except:
-        print("\nComando inválido, Tente novamente\n")
-        sleep(3)  # Aguardamos 3 segundos para que o texto possa ser lido
-
-    return command
-
 
 # Função que implementa a interface central
 
@@ -82,9 +52,10 @@ def analysis_menu():
 
         return
 
+    # Criamos o dataframe através dos dados baixados
+    dataframe = webscrap.extract_data()
     while(True):
 
-        dataframe = webscrap.extract_data() # Criamos o dataframe através dos dados baixados
         display_menu()
         command = test_valid_input(1, 2)
 
