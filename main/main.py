@@ -1,4 +1,6 @@
 import get_files
+import webscrap
+import analysis
 import os
 from time import sleep
 
@@ -47,23 +49,21 @@ def main_interface():
         print("Para acessar a funcionalidade desejada, digite o número da opção e confirme com a tecla 'enter'\n")
         print("(1) - Análisar resultados")
         print("(2) - Atualizar banco de dados")
-        print("(3) - Ajuda")
-        print("(4) - Sair")
+        print("(3) - Sair")
 
         return
 
     while(True):
 
         display_menu()
-        command = test_valid_input(1, 4)
+        command = test_valid_input(1, 3)
 
         if command == 1:
             analysis_menu()  # Vamos para o menu de análises
         elif command == 2:
             get_files.obtain_data()  # Baixamos os dados mais recentes
+
         elif command == 3:
-            pass
-        elif command == 4:
             break
 
     return
@@ -84,11 +84,12 @@ def analysis_menu():
 
     while(True):
 
+        dataframe = webscrap.extract_data() # Criamos o dataframe através dos dados baixados
         display_menu()
         command = test_valid_input(1, 2)
 
         if command == 1:
-            recurrency_menu()
+            recurrency_menu(dataframe)
         elif command == 2:
             break
 
@@ -97,7 +98,7 @@ def analysis_menu():
 # Função que implementa o menu de análise de recorrência
 
 
-def recurrency_menu():
+def recurrency_menu(dataframe):
 
     def display_menu():
 
@@ -115,11 +116,11 @@ def recurrency_menu():
         command = test_valid_input(1, 4)
 
         if command == 1:
-            pass
+            analysis.find_recurrency('mais frequentes', dataframe)
         elif command == 2:
-            pass
+            analysis.find_recurrency('menos frequentes', dataframe)
         elif command == 3:
-            pass
+            analysis.find_recurrency('Specific Number', dataframe)
         elif command == 4:
             break
 
