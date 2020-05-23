@@ -52,6 +52,8 @@ def analysis_menu():
 
         return
 
+    get_files.should_update()
+    display_header() 
     # Criamos o dataframe através dos dados baixados
     dataframe = webscrap.extract_data()
     while(True):
