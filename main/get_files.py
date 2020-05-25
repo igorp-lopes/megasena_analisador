@@ -2,7 +2,9 @@ import requests
 import pathlib
 import os
 import datetime
+from time import sleep
 from zipfile import ZipFile
+from utilities import display_header
 
 rootDir = pathlib.Path.cwd()  # Obtemos o diretório principal do programa
 # Obtemos o diretório onde os dados serão baixados
@@ -16,6 +18,9 @@ def obtain_data():
     databasePath = rootDir.joinpath('D_megase.zip')
     # Endereço do arquivo compactado com os dados
     url = "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_megase.zip"
+
+    display_header()  # Exibimos o cabeçalho
+    print("O programa está atualizando a base de dados, por favor aguarde")
 
     try:
         response = requests.get(url)  # Objeto obtido do request
@@ -46,6 +51,7 @@ def should_update():
     today = datetime.date.today()  # Obtemos a data de hoje
     # Localização do arquivo que registra quando ocorreu a última atualização
     lastupdate_path = filesDir.joinpath('lastupdate.txt')
+    display_header()  # Exibimos o cabeçalho
 
     try:
 
@@ -57,21 +63,23 @@ def should_update():
                 data_update, "%d/%m/%Y,").date()
 
             # Calculamos a diferença de tempo da última atualização para o dia atual
-            days_since_update = (data_update - today).days
+            days_since_update = (today - data_update).days
 
             if days_since_update > 7:  # Testamos se a última atualização foi a mais de 7 dias
-                print(
-                    f"O banco de dados foi atualizado pela última vez há {days_since_update} dias")
-                print("Gostaria de atualiza-lo?")
 
                 while(True):
 
                     try:
+                        display_header()  # Exibimos o cabeçalho
+                        print(
+                            f"O banco de dados foi atualizado pela última vez há {days_since_update} dias")
+                        print("Gostaria de atualiza-lo?")
                         print('(1) - Sim\n(2) - Não')
                         command = input()
                         assert((command == '1') or (command == '2'))
                     except:
                         print('Comando inválido, tente novamente')
+                        sleep(1.5)
                     else:
                         break
 
@@ -84,10 +92,15 @@ def should_update():
                     # Salvamos em um arquivo txt a data atual como a data da última atualiza
                     file.write(today)
 
+                print("Pressione enter para continuar\n")
+                input()
+
     except IOError as erro:  # Caso no qual não há arquivo com a data da última atualização
 
         print('\nNão foi possível determinar a data da última atualização')
         print('O programa vai atualizar o banco de dados agora')
+        print("Pressione enter para continuar\n")
+        input()
         try:
 
             with open(lastupdate_path, 'w') as file:

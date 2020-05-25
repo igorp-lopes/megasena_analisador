@@ -24,7 +24,8 @@ def main_interface():
         return
 
     while(True):
-
+        
+        get_files.should_update() # Avaliamos se a base de dados deve ser atualizada
         display_menu()
         command = test_valid_input(1, 3)
 
