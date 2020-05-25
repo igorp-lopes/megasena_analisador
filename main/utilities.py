@@ -4,7 +4,7 @@ from time import sleep
 # Função que exibe o cabeçalho
 
 
-def display_header():
+def displayHeader():
     # Limpa o terminal e mostra o cabeçalho
     os.system('clear')
 
@@ -19,7 +19,7 @@ def display_header():
 # Função que testa se a entrada é válida
 
 
-def test_valid_input(first_opt, last_opt):
+def testValidInput(first_opt, last_opt):
 
     try:
         command = int(input())  # Recebemos o comando do cmd

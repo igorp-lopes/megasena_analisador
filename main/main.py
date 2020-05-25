@@ -1,7 +1,7 @@
 import get_files
 import webscrap
 import analysis
-from utilities import display_header, test_valid_input
+from utilities import displayHeader, testValidInput
 
 
 ## FUNÇÔES ##
@@ -9,12 +9,12 @@ from utilities import display_header, test_valid_input
 # Função que implementa a interface central
 
 
-def main_interface():
+def mainInterface():
 
     # Função que exibe o menu principal
-    def display_menu():
+    def displayMenu():
 
-        display_header()  # Mostramos o cabeçalho
+        displayHeader()  # Mostramos o cabeçalho
         print("Bem vindo ao analisador de jogos da Mega Sena!")
         print("Para acessar a funcionalidade desejada, digite o número da opção e confirme com a tecla 'enter'\n")
         print("(1) - Análisar resultados")
@@ -26,13 +26,13 @@ def main_interface():
     while(True):
         
         get_files.should_update() # Avaliamos se a base de dados deve ser atualizada
-        display_menu()
-        command = test_valid_input(1, 3)
+        displayMenu()
+        command = testValidInput(1, 3)
 
         if command == 1:
-            analysis_menu()  # Vamos para o menu de análises
+            analysisMenu()  # Vamos para o menu de análises
         elif command == 2:
-            get_files.obtain_data()  # Baixamos os dados mais recentes
+            get_files.obtainData()  # Baixamos os dados mais recentes
 
         elif command == 3:
             break
@@ -42,11 +42,11 @@ def main_interface():
 # Função que implementa a interface de análise
 
 
-def analysis_menu():
+def analysisMenu():
 
-    def display_menu():
+    def displayMenu():
 
-        display_header()  # Exibimos o cabeçalho
+        displayHeader()  # Exibimos o cabeçalho
 
         print("(1) - Análisar a recorrência dos números")
         print("(2) - Voltar")
@@ -54,16 +54,16 @@ def analysis_menu():
         return
 
     get_files.should_update()
-    display_header() 
+    displayHeader() 
     # Criamos o dataframe através dos dados baixados
-    dataframe = webscrap.extract_data()
+    dataframe = webscrap.extractData()
     while(True):
 
-        display_menu()
-        command = test_valid_input(1, 2)
+        displayMenu()
+        command = testValidInput(1, 2)
 
         if command == 1:
-            recurrency_menu(dataframe)
+            recurrencyMenu(dataframe)
         elif command == 2:
             break
 
@@ -72,11 +72,11 @@ def analysis_menu():
 # Função que implementa o menu de análise de recorrência
 
 
-def recurrency_menu(dataframe):
+def recurrencyMenu(dataframe):
 
-    def display_menu():
+    def displayMenu():
 
-        display_header()  # Exibimos o cabeçalho
+        displayHeader()  # Exibimos o cabeçalho
 
         print("(1) - Exibir os 6 números mais sorteados")
         print("(2) - Exibir os 6 números menos sorteados")
@@ -86,19 +86,19 @@ def recurrency_menu(dataframe):
         return
 
     while(True):
-        display_menu()
-        command = test_valid_input(1, 4)
+        displayMenu()
+        command = testValidInput(1, 4)
 
         if command == 1:
-            analysis.find_recurrency('mais frequentes', dataframe)
+            analysis.findRecurrency('mais frequentes', dataframe)
         elif command == 2:
-            analysis.find_recurrency('menos frequentes', dataframe)
+            analysis.findRecurrency('menos frequentes', dataframe)
         elif command == 3:
-            analysis.find_recurrency('Specific Number', dataframe)
+            analysis.findRecurrency('Specific Number', dataframe)
         elif command == 4:
             break
 
 ## PROGRAMA ##
 
 
-main_interface()
+mainInterface()

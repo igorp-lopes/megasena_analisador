@@ -4,7 +4,7 @@ import os
 import datetime
 from time import sleep
 from zipfile import ZipFile
-from utilities import display_header
+from utilities import displayHeader
 
 rootDir = pathlib.Path.cwd()  # Obtemos o diretório principal do programa
 # Obtemos o diretório onde os dados serão baixados
@@ -13,13 +13,13 @@ filesDir = rootDir.joinpath('files')
 # Função respośavel por baixar os dados e prepara-los para o uso no programa
 
 
-def obtain_data():
+def obtainData():
 
     databasePath = rootDir.joinpath('D_megase.zip')
     # Endereço do arquivo compactado com os dados
     url = "http://www1.caixa.gov.br/loterias/_arquivos/loterias/D_megase.zip"
 
-    display_header()  # Exibimos o cabeçalho
+    displayHeader()  # Exibimos o cabeçalho
     print("O programa está atualizando a base de dados, por favor aguarde")
 
     try:
@@ -27,10 +27,10 @@ def obtain_data():
     except Exception as erro:
         print("Algo deu errado:", erro)
     else:
-        with open(databasePath, "wb") as data_zipped:
+        with open(databasePath, "wb") as dataZipped:
             try:
                 # Baixamos o zip na pasta files
-                data_zipped.write(response.content)
+                dataZipped.write(response.content)
 
                 # Descompactamos os dados
                 zipObj = ZipFile(databasePath, 'r')
@@ -50,29 +50,29 @@ def obtain_data():
 def should_update():
     today = datetime.date.today()  # Obtemos a data de hoje
     # Localização do arquivo que registra quando ocorreu a última atualização
-    lastupdate_path = filesDir.joinpath('lastupdate.txt')
-    display_header()  # Exibimos o cabeçalho
+    lastupdatePath = filesDir.joinpath('lastupdate.txt')
+    displayHeader()  # Exibimos o cabeçalho
 
     try:
 
-        with open(lastupdate_path, 'r+') as file:
-            data_update = file.read()  # Obtemos do arquivo txt a data da última atualização
+        with open(lastupdatePath, 'r+') as file:
+            dataUpdate = file.read()  # Obtemos do arquivo txt a data da última atualização
 
             # Convertemos a data em string para datetime
-            data_update = datetime.datetime.strptime(
-                data_update, "%d/%m/%Y,").date()
+            dataUpdate = datetime.datetime.strptime(
+                dataUpdate, "%d/%m/%Y,").date()
 
             # Calculamos a diferença de tempo da última atualização para o dia atual
-            days_since_update = (today - data_update).days
+            daysSinceUpdate = (today - dataUpdate).days
 
-            if days_since_update > 7:  # Testamos se a última atualização foi a mais de 7 dias
+            if daysSinceUpdate > 7:  # Testamos se a última atualização foi a mais de 7 dias
 
                 while(True):
 
                     try:
-                        display_header()  # Exibimos o cabeçalho
+                        displayHeader()  # Exibimos o cabeçalho
                         print(
-                            f"O banco de dados foi atualizado pela última vez há {days_since_update} dias")
+                            f"O banco de dados foi atualizado pela última vez há {daysSinceUpdate} dias")
                         print("Gostaria de atualiza-lo?")
                         print('(1) - Sim\n(2) - Não')
                         command = input()
@@ -84,7 +84,7 @@ def should_update():
                         break
 
                 if command == '1':  # Caso queiramos atualizar
-                    obtain_data()  # Atualizamos o banco de dados
+                    obtainData()  # Atualizamos o banco de dados
                     # Convertemos a data para o formato de string
                     today = today.strftime("%d/%m/%Y,")
                     file.seek(0)
@@ -103,7 +103,7 @@ def should_update():
         input()
         try:
 
-            with open(lastupdate_path, 'w') as file:
+            with open(lastupdatePath, 'w') as file:
                 # Convertemos para string a data do dia atual
                 temp = today.strftime("%d/%m/%Y,")
                 # Salvamos em um arquivo txt a data atual como a data da última atualização
@@ -114,7 +114,7 @@ def should_update():
             print(f'Erro: {erro}')
             print('Prosseguindo para o programa')
 
-        obtain_data()  # Atualizamos o banco de dados
+        obtainData()  # Atualizamos o banco de dados
 
     except Exception as erro:
         print('Ocorreu um erro no processo de verificação da atualização')
