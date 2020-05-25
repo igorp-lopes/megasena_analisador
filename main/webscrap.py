@@ -26,8 +26,15 @@ def extractData(): # Função que extrai os dados da webpage
 
     dfTable = tempDf[0]
 
+    # Limpamos os dados da tabela fazendo os ajustes necessários
+
     # Armazenamos apenas as colunas da tabela que nos interessam
-    df = dfTable[ ["Concurso", 'Data Sorteio', '1ª Dezena', '2ª Dezena',	'3ª Dezena', '4ª Dezena', '5ª Dezena', 
+    df = dfTable[ ["Concurso", 'Data Sorteio', '1ª Dezena', '2ª Dezena', '3ª Dezena', '4ª Dezena', '5ª Dezena', 
     '6ª Dezena', 'Ganhadores_Sena', 'Rateio_Sena', 'Acumulado', 'Valor_Acumulado']]
 
+    # Alteramos o nome de algumas colunas
+    df.rename(columns={'Ganhadores_Sena': 'Número de Ganhadores', 'Valor_Acumulado': 'Valor Acumulado', 'Rateio_Sena': 'Rateio'}, inplace=True)
+
+    df['Data Sorteio']= pd.to_datetime(df['Data Sorteio'], infer_datetime_format = True) # Passamos os dados da coluna das datas para o tipo datetime
+    
     return df # Retornamos o dataframe com a tabela de dados
