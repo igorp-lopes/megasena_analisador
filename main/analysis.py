@@ -22,19 +22,23 @@ def find_recurrency(option, dataframe):
     percentage = lambda x: (x/tot) * 100 # Lambda usado para calcular a porcentagem
     df_ocorr['% Total'] = ocurr.apply(percentage) # Criamos a coluna das porcentagens
 
-    display_header()
-
     if option == 'Specific Number':
-        print("Qual o número para pesquisar sua ocorrência?\n")
-        num_esc = test_valid_input(1,60)
 
-        df_temp = df_ocorr.iloc[(num_esc-1), 0] # Selecionamos o número desejado no dataframe considerando a indexação começando no 0
+        while(True):
+            display_header()
+            print("Qual o número para pesquisar sua ocorrência?\n")
+            num_esc = test_valid_input(1,60) # Testamos se a entrada é um dos números presentes na cartela da megasena
 
-        print(f"O número {num_esc} foi sorteado {df_temp} vezes")
-        print("Pressione enter para continuar\n")
-        input()     
+            if num_esc: # Se o valor recebido é um número válido
+                df_temp = df_ocorr.iloc[(num_esc-1), 0] # Selecionamos o número desejado no dataframe considerando a indexação começando no 0
+
+                print(f"O número {num_esc} foi sorteado {df_temp} vezes")
+                print("Pressione enter para continuar\n")
+                input()
+                break 
 
     else:
+        display_header() # Mostramos o cabeçalho
         if option == 'mais frequentes':
             df_ocorr.sort_values('% Total', inplace = True, ascending = False) # Ordenamos o dataframe em ordem decrescente
 
