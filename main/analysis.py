@@ -2,6 +2,26 @@ import pandas as pd
 import webscrap
 from time import sleep
 from utilities import displayHeader, testValidInput
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
+def selectDateInterval(dataframe, timeAgo, option):
+
+    endInter = datetime.now() # Salvamos a data atual como o final do intervalo
+
+    if option == 'Anos': # Se a opção escolhida é de trabalhar com o tempo em anos
+        timeAgo *= 12 # Transformamos a escala de tempo de anos para meses
+
+    startInter = endInter - relativedelta(months = timeAgo) # Subtraimos da data atual o tempo desejado
+
+    # Guardamos apenas a parte da data dos dados do tipo datetime
+    endInter = endInter.date()
+    startInter = startInter.date() 
+
+    # Criamos uma máscara de seleção considerando o intervalo de tempo desejado
+    selectionMask = (dataframe['Data Sorteio'] > startInter) & (dataframe["Data Sorteio"] <= endInter)
+
+    return dataframe.loc[selectionMask] # Retornamos o dataframe com a máscara de seleção aplicada
 
 def findRecurrency(option, dataframe):
 

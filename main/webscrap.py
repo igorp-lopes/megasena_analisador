@@ -35,6 +35,7 @@ def extractData(): # Função que extrai os dados da webpage
     # Alteramos o nome de algumas colunas
     df.rename(columns={'Ganhadores_Sena': 'Número de Ganhadores', 'Valor_Acumulado': 'Valor Acumulado', 'Rateio_Sena': 'Rateio'}, inplace=True)
 
-    df['Data Sorteio']= pd.to_datetime(df['Data Sorteio'], infer_datetime_format = True) # Passamos os dados da coluna das datas para o tipo datetime
+    df['Data Sorteio']= pd.to_datetime(df['Data Sorteio'], format = '%d/%m/%Y') # Passamos os dados da coluna das datas para o tipo datetime
+    df['Data Sorteio'] = df['Data Sorteio'].dt.date # Guardamos apenas a parte das datas do tipo datetime
     
     return df # Retornamos o dataframe com a tabela de dados
