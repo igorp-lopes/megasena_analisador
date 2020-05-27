@@ -54,6 +54,7 @@ def findRecurrency(option, dataframe):
     def percentage(x): return (x/tot) * 100
     # Criamos a coluna das porcentagens
     dfOcorr['% Total'] = ocurr.apply(percentage)
+    index = dfOcorr.index  # Obtemos os indíces do dataframe
 
     if option == 'Specific Number':
 
@@ -64,17 +65,21 @@ def findRecurrency(option, dataframe):
             numEsc = testValidInput(1, 60)
 
             if numEsc:  # Se o valor recebido é um número válido
-                try:
-                    # Selecionamos o número desejado no dataframe considerando a indexação começando no 0
-                    df_temp = dfOcorr.iloc[(numEsc-1), 0]
 
-                    print(f"O número {numEsc} foi sorteado {df_temp} vezes")
-                except:
-                    print(f"O número {numEsc} não foi sorteado nenhuma vez")
-                finally:
-                    print("Pressione enter para continuar\n")
-                    input()
-                    break
+                # Selecionamos o número desejado no dataframe considerando a indexação começando no 0
+                df_temp = dfOcorr.loc[index == numEsc]
+
+                # Se o dataframe está vazio
+                if df_temp.empty:
+                    print(f"\nO número {numEsc} não foi sorteado nenhuma vez")
+                else:
+
+                    # Obtemos o total de ocorrências do número desejado
+                    ocorr = df_temp.iloc[0, 0]
+                    print(f"\nO número {numEsc} foi sorteado {ocorr} vezes")
+                print("Pressione enter para continuar\n")
+                input()
+                break
 
     else:
         displayHeader()  # Mostramos o cabeçalho
