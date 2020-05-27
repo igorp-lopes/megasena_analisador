@@ -56,7 +56,8 @@ def analysisMenu():
     get_files.should_update()
     displayHeader() 
     # Criamos o dataframe através dos dados baixados
-    dataframe = webscrap.extractData()
+
+    dataframe = analysis.selectDateInterval(webscrap.extractData(), 1, 0)
     while(True):
 
         displayMenu()
