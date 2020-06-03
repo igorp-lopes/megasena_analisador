@@ -3,6 +3,7 @@ import webscrap
 from time import sleep
 from utilities import displayHeader, testValidInput
 from datetime import datetime
+from datetime import date
 from dateutil.relativedelta import relativedelta
 
 
@@ -31,12 +32,12 @@ def selectDateInterval(dataframe, timeAgo, option):
 def findRecurrency(option, dataframe):
 
     # Selecionamos apenas as colunas que indicam os números sorteados
-    dfNums = dataframe.iloc[:, 2:8]
+    dataframe = dataframe.iloc[:, 2:8]
 
     # Series que armazenará o total de ocorrências de cada número
     ocurr = pd.Series([])
 
-    for (column, data) in dfNums.iteritems():  # Iteramos pelo data frame coluna a coluna
+    for (_, data) in dataframe.iteritems():  # Iteramos pelo data frame coluna a coluna
         # Contamos as ocorrências de cada número na coluna
         temp = (data.value_counts()).sort_index()
         # Somamos as ocorrências da coluna com as ocorrências das colunas anteriores
@@ -100,3 +101,18 @@ def findRecurrency(option, dataframe):
         input()
 
     return
+
+# Função que retorna a data da ocorrência mais antiga de um número
+def findLastOcurr(numEsc, dataframe):
+
+dataAnt = date(9999,12,31) # Valor inicial padrão menor do que todas as datas do dataframe para a comparação
+
+for column in dataframe.drop(["Data Sorteio"], axis = 1).columns:  # Iteramos pelo data frame coluna a coluna
+    dfTemp = dataframe[['Data Sorteio', column]] # Criamos um dataframe temporário com as datas e a dezena atual
+    dfTemp = dfTemp[dfTemp[column] == numEsc] # Selecionamos as datas em que o número escolhido for sorteado na dezena atual
+
+    if not dfTemp.empty: # Se o dataframe não está vazio
+        if dfTemp.iat[0,0] < dataAnt: # Se a data mais antiga da dezena atual é menor do que a menor data identificada anteriormente
+            dataAnt = dfTemp.iat[0,0] # Atualizamos a data mais antiga indentificada
+
+return dataAnt # Retornamos a data da ocorrência mais antiga do número escolhido
