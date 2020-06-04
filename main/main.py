@@ -49,7 +49,8 @@ def analysisMenu():
         displayHeader()  # Exibimos o cabeçalho
 
         print("(1) - Análisar a recorrência dos números")
-        print("(2) - Voltar")
+        print("(2) - Relacionar ocorrências com datas")
+        print("(3) - Voltar")
 
         return
 
@@ -57,7 +58,7 @@ def analysisMenu():
     displayHeader() 
     # Criamos o dataframe através dos dados baixados
 
-    dataframe = analysis.selectDateInterval(webscrap.extractData(), 1, 0)
+    dataframe = analysis.selectDateInterval(webscrap.extractData(), 6, 0)
     while(True):
 
         displayMenu()
@@ -66,6 +67,8 @@ def analysisMenu():
         if command == 1:
             recurrencyMenu(dataframe)
         elif command == 2:
+            dateMenu(dataframe)
+        elif command == 3:
             break
 
     return
@@ -97,6 +100,30 @@ def recurrencyMenu(dataframe):
         elif command == 3:
             analysis.findRecurrency('Specific Number', dataframe)
         elif command == 4:
+            break
+
+
+# Função que implementa o menu de análise data - ocorrencias
+
+
+def dateMenu(dataframe):
+
+    def displayMenu():
+
+        displayHeader()  # Exibimos o cabeçalho
+
+        print("(1) - Exibir os 6 números mais sorteados")
+        print("(2) - Voltar")
+
+        return
+
+    while(True):
+        displayMenu()
+        command = testValidInput(1, 2)
+
+        if command == 1:
+            pass
+        elif command == 2:
             break
 
 ## PROGRAMA ##
