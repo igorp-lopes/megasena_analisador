@@ -105,14 +105,44 @@ def findRecurrency(option, dataframe):
 # Função que retorna a data da ocorrência mais antiga de um número
 def findLastOcurr(numEsc, dataframe):
 
-dataAnt = date(9999,12,31) # Valor inicial padrão menor do que todas as datas do dataframe para a comparação
+    dataAnt = date(9999,12,31) # Valor inicial padrão maior do que todas as datas do dataframe para a comparação
 
-for column in dataframe.drop(["Data Sorteio"], axis = 1).columns:  # Iteramos pelo data frame coluna a coluna
-    dfTemp = dataframe[['Data Sorteio', column]] # Criamos um dataframe temporário com as datas e a dezena atual
-    dfTemp = dfTemp[dfTemp[column] == numEsc] # Selecionamos as datas em que o número escolhido for sorteado na dezena atual
+    for column in dataframe.drop(["Data Sorteio"], axis = 1).columns:  # Iteramos pelo data frame coluna a coluna
+        dfTemp = dataframe[['Data Sorteio', column]] # Criamos um dataframe temporário com as datas e a dezena atual
+        dfTemp = dfTemp[dfTemp[column] == numEsc] # Selecionamos as datas em que o número escolhido for sorteado na dezena atual
 
-    if not dfTemp.empty: # Se o dataframe não está vazio
-        if dfTemp.iat[0,0] < dataAnt: # Se a data mais antiga da dezena atual é menor do que a menor data identificada anteriormente
-            dataAnt = dfTemp.iat[0,0] # Atualizamos a data mais antiga indentificada
+        if not dfTemp.empty: # Se o dataframe não está vazio
+            if dfTemp.iat[0,0] < dataAnt: # Se a data mais antiga da dezena atual é menor do que a menor data identificada anteriormente
+                dataAnt = dfTemp.iat[0,0] # Atualizamos a data mais antiga indentificada
 
-return dataAnt # Retornamos a data da ocorrência mais antiga do número escolhido
+    return dataAnt # Retornamos a data da ocorrência mais antiga do número escolhido
+
+def dataAnalysis(option,dataframe):
+
+    if option == 'Specific Number':
+
+        while(True):
+            displayHeader()
+            print("Qual o número para relacionar suas ocorrências com datas?\n")
+            # Testamos se a entrada é um dos números presentes na cartela da megasena
+            numEsc = testValidInput(1, 60)
+
+            if numEsc:  # Se o valor recebido é um número válido
+
+                # Obtemos a data da ocorrência mais antiga do número selecionado
+                oldDate = findLastOcurr(numEsc, dataframe)
+
+                # Se o dataframe está vazio
+                if oldDate == None:
+                    print(f"\nO número {numEsc} não foi sorteado nenhuma vez no período de tempo selecionado")
+
+                else:
+                    oldDate = oldDate.strftime("%d/%m/%Y") # Convertemos a data para o formato string
+                    print(f"\nA data mais antiga em que o número {numEsc} foi sorteado é {oldDate}")
+
+                print("Pressione enter para continuar\n")
+                input()
+                break
+    
+    else:
+        pass

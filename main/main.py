@@ -62,7 +62,7 @@ def analysisMenu():
     while(True):
 
         displayMenu()
-        command = testValidInput(1, 2)
+        command = testValidInput(1, 3)
 
         if command == 1:
             recurrencyMenu(dataframe)
@@ -112,7 +112,7 @@ def dateMenu(dataframe):
 
         displayHeader()  # Exibimos o cabeçalho
 
-        print("(1) - Exibir os 6 números mais sorteados")
+        print("(1) - Análise de data - ocorrências para um número especifico")
         print("(2) - Voltar")
 
         return
@@ -122,7 +122,7 @@ def dateMenu(dataframe):
         command = testValidInput(1, 2)
 
         if command == 1:
-            pass
+            analysis.dataAnalysis("Specific Number",dataframe)
         elif command == 2:
             break
 
