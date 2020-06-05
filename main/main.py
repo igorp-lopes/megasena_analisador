@@ -113,17 +113,23 @@ def dateMenu(dataframe):
         displayHeader()  # Exibimos o cabeçalho
 
         print("(1) - Análise de data - ocorrências para um número especifico")
-        print("(2) - Voltar")
+        print("(2) - Ordenar os números por data mais recente de ocorrência")
+        print("(3) - Ordenar os números por data mais antiga de ocorrência")
+        print("(4) - Voltar")
 
         return
 
     while(True):
         displayMenu()
-        command = testValidInput(1, 2)
+        command = testValidInput(1, 4)
 
         if command == 1:
             analysis.dateAnalysis("Specific Number",dataframe)
         elif command == 2:
+            pass
+        elif command == 3:
+            pass
+        elif command == 4:
             break
 
 ## PROGRAMA ##
