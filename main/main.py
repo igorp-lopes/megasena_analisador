@@ -58,7 +58,7 @@ def analysisMenu():
     displayHeader() 
     # Criamos o dataframe através dos dados baixados
 
-    dataframe = analysis.selectDateInterval(webscrap.extractData(), 6, 0)
+    dataframe = analysis.selectDateInterval(webscrap.extractData(), 12, 0)
     while(True):
 
         displayMenu()
@@ -122,7 +122,7 @@ def dateMenu(dataframe):
         command = testValidInput(1, 2)
 
         if command == 1:
-            analysis.dataAnalysis("Specific Number",dataframe)
+            analysis.dateAnalysis("Specific Number",dataframe)
         elif command == 2:
             break
 

@@ -78,7 +78,7 @@ def findRecurrency(option, dataframe):
                     # Obtemos o total de ocorrências do número desejado
                     ocorr = df_temp.iloc[0, 0]
                     print(f"\nO número {numEsc} foi sorteado {ocorr} vezes")
-                print("Pressione enter para continuar\n")
+                print("\nPressione enter para continuar\n")
                 input()
                 break
 
@@ -102,22 +102,39 @@ def findRecurrency(option, dataframe):
 
     return
 
-# Função que retorna a data da ocorrência mais antiga de um número
-def findLastOcurr(numEsc, dataframe):
+# Função que retorna as informações sobre as datas de ocorrências de um número
 
-    dataAnt = date(9999,12,31) # Valor inicial padrão maior do que todas as datas do dataframe para a comparação
+def findDateOcurr(numEsc, dataframe):
 
-    for column in dataframe.drop(["Data Sorteio"], axis = 1).columns:  # Iteramos pelo data frame coluna a coluna
+    dataNov = date(1990,12,31) # Valor inicial padrão da data mais recente menor do que todas as datas do dataframe para a comparação
+    dataAnt = date(9999,12,31) # Valor inicial padrão da data mais antiga maior do que todas as datas do dataframe para a comparação
+
+    for column in dataframe.drop(["Data Sorteio"], axis = 1).columns:  # Eliminamos a coluna das datas e iteramos pelo data frame coluna a coluna
         dfTemp = dataframe[['Data Sorteio', column]] # Criamos um dataframe temporário com as datas e a dezena atual
         dfTemp = dfTemp[dfTemp[column] == numEsc] # Selecionamos as datas em que o número escolhido for sorteado na dezena atual
 
         if not dfTemp.empty: # Se o dataframe não está vazio
-            if dfTemp.iat[0,0] < dataAnt: # Se a data mais antiga da dezena atual é menor do que a menor data identificada anteriormente
-                dataAnt = dfTemp.iat[0,0] # Atualizamos a data mais antiga indentificada
 
-    return dataAnt # Retornamos a data da ocorrência mais antiga do número escolhido
+            dataIndex = dfTemp.index[-1] # Obtemos índice da data mais recente no dataframe atual
 
-def dataAnalysis(option,dataframe):
+            if dfTemp['Data Sorteio'].loc[dataIndex] > dataNov: # Se a data mais recente da dezena atual é mais recente do que a mais recente data identificada anteriormente
+                dataNov = dfTemp['Data Sorteio'].loc[dataIndex] # Atualizamos a data mais antiga indentificada
+
+            dataIndex = dfTemp.index[0] # Obtemos índice da data mais antiga no dataframe atual
+
+            if dfTemp['Data Sorteio'].loc[dataIndex] < dataAnt: # Se a data mais antiga da dezena atual é mais antiga do que a mais antiga data identificada anteriormente
+                dataAnt = dfTemp['Data Sorteio'].loc[dataIndex] # Atualizamos a data mais antiga indentificada
+
+    if dataNov == date(1990,12,31): # Se não há alteração no valor inicial padrão, ou seja, não há ocorrências do número
+        return None, None
+
+    return dataNov, dataAnt
+
+
+def dateAnalysis(option,dataframe):
+
+    # Selecionamos apenas as colunas que indicam a data dos sorteios e os números sorteados
+    dataframe = dataframe.iloc[:, 1:8]
 
     if option == 'Specific Number':
 
@@ -130,7 +147,7 @@ def dataAnalysis(option,dataframe):
             if numEsc:  # Se o valor recebido é um número válido
 
                 # Obtemos a data da ocorrência mais antiga do número selecionado
-                oldDate = findLastOcurr(numEsc, dataframe)
+                newDate, oldDate = findDateOcurr(numEsc, dataframe)
 
                 # Se o dataframe está vazio
                 if oldDate == None:
@@ -139,8 +156,10 @@ def dataAnalysis(option,dataframe):
                 else:
                     oldDate = oldDate.strftime("%d/%m/%Y") # Convertemos a data para o formato string
                     print(f"\nA data mais antiga em que o número {numEsc} foi sorteado é {oldDate}")
+                    newDate = newDate.strftime("%d/%m/%Y") # Convertemos a data para o formato string
+                    print(f"\nA data mais recente em que o número {numEsc} foi sorteado é {newDate}")
 
-                print("Pressione enter para continuar\n")
+                print("\nPressione enter para continuar\n")
                 input()
                 break
     
