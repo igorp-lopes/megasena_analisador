@@ -1,10 +1,11 @@
 import pandas as pd
 import webscrap
 from time import sleep
-from utilities import displayHeader, testValidInput
 from datetime import datetime
 from datetime import date
 from dateutil.relativedelta import relativedelta
+import itertools
+from utilities import displayHeader, testValidInput
 
 
 def selectDateInterval(dataframe, timeAgo, option):
@@ -133,6 +134,16 @@ def findDateOcurr(numEsc, dataframe):
 
 def dateAnalysis(option,dataframe):
 
+    class ocurrDates():
+
+        def __init__(self, number, newDate, oldDate):
+            self.number = number
+            self.newestDate = newDate
+            self.oldestDate = oldDate
+
+        def returnDates(self):
+            return self.newestDate, self.oldestDate
+
     # Selecionamos apenas as colunas que indicam a data dos sorteios e os números sorteados
     dataframe = dataframe.iloc[:, 1:8]
 
@@ -155,13 +166,60 @@ def dateAnalysis(option,dataframe):
 
                 else:
                     oldDate = oldDate.strftime("%d/%m/%Y") # Convertemos a data para o formato string
-                    print(f"\nA data mais antiga em que o número {numEsc} foi sorteado é {oldDate}")
+                    print(f"\nA primeira vez em que o número {numEsc} foi sorteado foi em {oldDate}")
                     newDate = newDate.strftime("%d/%m/%Y") # Convertemos a data para o formato string
-                    print(f"\nA data mais recente em que o número {numEsc} foi sorteado é {newDate}")
+                    print(f"\nA última vez em que o número {numEsc} foi sorteado foi em {newDate}")
 
-                print("\nPressione enter para continuar\n")
-                input()
                 break
     
     else:
-        pass
+        
+        listDate = [] # Lista que armazena as datas das ocorrências
+        # Para cada um dos possíveis números
+        for number in itertools.count(1):
+            
+            # Condição de saída do loop
+            if number > 60:
+                break
+
+            # Obtemos as datas das ocorrências mais recente e mais nova do número atual
+            dataNov, dataAnt = findDateOcurr(number, dataframe)
+
+            numDates = ocurrDates(number, dataNov, dataAnt) # Instanciamos um objeto para guardar as datas
+
+            listDate.append(numDates) # Salvamos o objeto na lista
+
+        displayHeader()
+
+        if(option == "Most Recent"):
+            listDate.sort(key = lambda x: x.newestDate, reverse = False) # Ordenamos a lista pela data mais recente
+            print("\nOrdenando os números pela última vez em que eles foram sorteados\n")
+
+            for date in listDate:
+
+                if date.newestDate == None:
+                    print(f"{date.number} não foi sorteado nenhuma vez")
+
+                else:
+                    newDate = date.newestDate.strftime("%d/%m/%Y") # Convertemos a data para o formato string
+                    print(f"{date.number} - {newDate}")
+
+
+        else:
+            listDate.sort(key = lambda x: x.oldestDate, reverse = False) # Ordenamos a lista pela data mais antiga
+            print("\nOrdenando os números pela primeira vez em que eles foram sorteados\n")
+            
+            for date in listDate:
+
+                if date.oldestDate == None:
+                    print(f"{date.number} não foi sorteado nenhuma vez")
+
+                else:
+                    oldDate = date.oldestDate.strftime("%d/%m/%Y") # Convertemos a data para o formato string
+                    print(f"{date.number} - {oldDate}")
+
+    print("\nPressione enter para continuar\n")
+    input()
+
+    return
+
