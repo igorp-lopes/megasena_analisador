@@ -113,8 +113,8 @@ def dateMenu(dataframe):
         displayHeader()  # Exibimos o cabeçalho
 
         print("(1) - Análise de data - ocorrências para um número especifico")
-        print("(2) - Ordenar os números por data mais recente de ocorrência")
-        print("(3) - Ordenar os números por data mais antiga de ocorrência")
+        print("(2) - Ordenar os números pela última vez em que eles ocorreram")
+        print("(3) - Ordenar os números pela primeira vez em que eles ocorreram")
         print("(4) - Voltar")
 
         return
@@ -126,9 +126,9 @@ def dateMenu(dataframe):
         if command == 1:
             analysis.dateAnalysis("Specific Number",dataframe)
         elif command == 2:
-            pass
+            analysis.dateAnalysis("Most Recent", dataframe)
         elif command == 3:
-            pass
+            analysis.dateAnalysis("Oldest", dataframe)
         elif command == 4:
             break
 
