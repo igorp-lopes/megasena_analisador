@@ -9,5 +9,8 @@ Progresso da aplicação:
   - Análisar a frequência de um número específico -> (100%);
   - Determinar os 6 números mais recorrentes -> (100%);
   - Determinar os 6 números menos frequentes -> (100%);
-  - Identificar números que não foram sorteados -> (0%);
-  - Identificar os números que estão a mais tempo sem serem sorteados -> (0%);
+  - Identificar números que não foram sorteados -> (100%);
+  - Análisar as datas da primeira e da última ocorrência de um número específico -> (100%);
+  - Ordenar todos os números sorteados de acordo com a data da primeira ocorrência destes -> (100%);
+  - Ordenar todos os números sorteados de acordo com a data da última ocorrência destes -> (100%);
+  - Determinar o todas as diferentes combinções de N números em I posições distintas -> (0%);
