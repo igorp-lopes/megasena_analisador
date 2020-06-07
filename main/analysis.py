@@ -7,7 +7,6 @@ from dateutil.relativedelta import relativedelta
 import itertools
 from utilities import displayHeader, testValidInput
 
-
 def selectDateInterval(dataframe, timeAgo, option):
 
     endInter = datetime.now()  # Salvamos a data atual como o final do intervalo
@@ -78,7 +77,7 @@ def findRecurrency(option, dataframe):
 
                     # Obtemos o total de ocorrências do número desejado
                     ocorr = df_temp.iloc[0, 0]
-                    print(f"\nO número {numEsc} foi sorteado {ocorr} vezes")
+                    print(f"\nO número {numEsc} foi sorteado {int(ocorr)} vezes")
                 print("\nPressione enter para continuar\n")
                 input()
                 break
