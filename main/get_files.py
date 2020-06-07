@@ -24,8 +24,10 @@ def obtainData():
 
     try:
         response = requests.get(url)  # Objeto obtido do request
+
     except Exception as erro:
-        print("Algo deu errado:", erro)
+        print("\nHouve um problema na execução da atualização, o seguinte erro foi relatado:\n", erro)
+
     else:
         with open(databasePath, "wb") as dataZipped:
             try:
@@ -38,10 +40,14 @@ def obtainData():
 
                 # Limpamos o diretório dos arquivos desnecessários
                 os.remove(databasePath)
+                print("\nO banco de dados foi atualizado com sucesso")
 
             except Exception as erro:
-                print("Algo deu errado:", erro)
+                print("\nHouve um problema na execução da atualização, o seguinte erro foi relatado:\n", erro)
 
+    print("Pressione enter para continuar\n")
+    input()
+    
     return
 
 # Função responsável por checar se a base de dados deve ser atualizada
