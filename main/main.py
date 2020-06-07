@@ -25,7 +25,6 @@ def mainInterface():
 
     while(True):
         
-        get_files.should_update() # Avaliamos se a base de dados deve ser atualizada
         displayMenu()
         command = testValidInput(1, 3)
 
@@ -49,23 +48,27 @@ def analysisMenu():
         displayHeader()  # Exibimos o cabeçalho
 
         print("(1) - Análisar a recorrência dos números")
-        print("(2) - Voltar")
+        print("(2) - Relacionar ocorrências com datas")
+        print("(3) - Voltar")
 
         return
 
     get_files.should_update()
     displayHeader() 
-    # Criamos o dataframe através dos dados baixados
 
-    dataframe = analysis.selectDateInterval(webscrap.extractData(), 1, 0)
+    print("O programa está carregando a base de dados, por favor aguarde")
+    # Criamos o dataframe através dos dados baixados
+    dataframe = analysis.selectDateInterval(webscrap.extractData(), 12, 0)
     while(True):
 
         displayMenu()
-        command = testValidInput(1, 2)
+        command = testValidInput(1, 3)
 
         if command == 1:
             recurrencyMenu(dataframe)
         elif command == 2:
+            dateMenu(dataframe)
+        elif command == 3:
             break
 
     return
@@ -96,6 +99,36 @@ def recurrencyMenu(dataframe):
             analysis.findRecurrency('menos frequentes', dataframe)
         elif command == 3:
             analysis.findRecurrency('Specific Number', dataframe)
+        elif command == 4:
+            break
+
+
+# Função que implementa o menu de análise data - ocorrencias
+
+
+def dateMenu(dataframe):
+
+    def displayMenu():
+
+        displayHeader()  # Exibimos o cabeçalho
+
+        print("(1) - Análise de data - ocorrências para um número especifico")
+        print("(2) - Ordenar os números pela última vez em que eles ocorreram")
+        print("(3) - Ordenar os números pela primeira vez em que eles ocorreram")
+        print("(4) - Voltar")
+
+        return
+
+    while(True):
+        displayMenu()
+        command = testValidInput(1, 4)
+
+        if command == 1:
+            analysis.dateAnalysis("Specific Number",dataframe)
+        elif command == 2:
+            analysis.dateAnalysis("Most Recent", dataframe)
+        elif command == 3:
+            analysis.dateAnalysis("Oldest", dataframe)
         elif command == 4:
             break
 
