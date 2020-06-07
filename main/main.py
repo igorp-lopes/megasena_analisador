@@ -25,7 +25,6 @@ def mainInterface():
 
     while(True):
         
-        get_files.should_update() # Avaliamos se a base de dados deve ser atualizada
         displayMenu()
         command = testValidInput(1, 3)
 
@@ -56,8 +55,9 @@ def analysisMenu():
 
     get_files.should_update()
     displayHeader() 
-    # Criamos o dataframe através dos dados baixados
 
+    print("O programa está carregando a base de dados, por favor aguarde")
+    # Criamos o dataframe através dos dados baixados
     dataframe = analysis.selectDateInterval(webscrap.extractData(), 12, 0)
     while(True):
 

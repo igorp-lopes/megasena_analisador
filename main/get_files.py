@@ -40,7 +40,7 @@ def obtainData():
 
                 # Limpamos o diretório dos arquivos desnecessários
                 os.remove(databasePath)
-                print("\nO banco de dados foi atualizado com sucesso")
+                print("\nO banco de dados foi atualizado com sucesso\n")
 
             except Exception as erro:
                 print("\nHouve um problema na execução da atualização, o seguinte erro foi relatado:\n", erro)
