@@ -7,12 +7,9 @@ from dateutil.relativedelta import relativedelta
 import itertools
 from utilities import displayHeader, testValidInput
 
-def selectDateInterval(dataframe, timeAgo, option):
+def selectDateInterval(dataframe, timeAgo):
 
     endInter = datetime.now()  # Salvamos a data atual como o final do intervalo
-
-    if option == 'Anos':  # Se a opção escolhida é de trabalhar com o tempo em anos
-        timeAgo *= 12  # Transformamos a escala de tempo de anos para meses
 
     # Subtraimos da data atual o tempo desejado
     startInter = endInter - relativedelta(months=timeAgo)
