@@ -181,9 +181,10 @@ def dateAnalysis(option,dataframe):
             # Obtemos as datas das ocorrências mais recente e mais nova do número atual
             dataNov, dataAnt = findDateOcurr(number, dataframe)
 
-            numDates = ocurrDates(number, dataNov, dataAnt) # Instanciamos um objeto para guardar as datas
-
-            listDate.append(numDates) # Salvamos o objeto na lista
+            # Se houve ocorrência do número
+            if dataNov != None:
+                numDates = ocurrDates(number, dataNov, dataAnt) # Instanciamos um objeto para guardar as datas
+                listDate.append(numDates) # Salvamos o objeto na lista
 
         displayHeader()
 
