@@ -55,7 +55,7 @@ def selectDateInterval():
 
         return
 
-    multiplicador = 1 #Variável que ajusta o intervalo de tempo para meses ou anos
+    multiplicador = 1 # Variável que ajusta o intervalo de tempo para meses ou anos
 
     while(True):
 
@@ -65,10 +65,12 @@ def selectDateInterval():
         if command == 1:
             multiplicador = 1
             tipoIntervalo = 'meses'
+            break
 
         elif command == 2:
             multiplicador = 12
             tipoIntervalo = 'anos'
+            break
 
     while(True):
 
@@ -78,9 +80,9 @@ def selectDateInterval():
 
         valor = input() # Recebemos o comando do cmd
 
-        # Testamos se o valor colocado é válido
-        if valor.isnumeric():
-            return int(valor * multiplicador) # Retornamos o tamanho do intervalo, aplicado a conversão se necessário
+        # Testamos se o valor colocado é válido, ignorando o possível sinal negativo '-'
+        if (valor.strip('-')).isnumeric():
+            return int(valor) * multiplicador # Retornamos o tamanho do intervalo, aplicado a conversão se necessário
 
         else:
             print("\nComando inválido, Tente novamente\n")
@@ -106,7 +108,6 @@ def analysisMenu():
 
     intervaloDatas = selectDateInterval() # Selecionamos o intervalo dos dados a serem considerados
     displayHeader() 
-
 
     print("O programa está carregando a base de dados, por favor aguarde")
     # Criamos o dataframe através dos dados baixados
