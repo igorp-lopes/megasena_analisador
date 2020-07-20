@@ -1,6 +1,7 @@
 import get_files
 import webscrap
 import analysis
+from time import sleep
 from utilities import displayHeader, testValidInput
 
 
@@ -38,6 +39,56 @@ def mainInterface():
 
     return
 
+# Função que implementa o menu de seleção do tipo de intervalo de datas para realizar a análise
+def selectDateInterval():
+    
+    def displayMenu():
+
+        displayHeader()  # Exibimos o cabeçalho
+
+        print("Selecione o intervalo de tempo dos dados a serem analisados")
+        print("De hoje até 'X' meses/anos atrás")
+
+        print("(1) - Selecionar a data em meses")
+        print("(2) - Selecionar a data em anos")
+        print("(3) - Voltar")
+
+        return
+
+    multiplicador = 1 # Variável que ajusta o intervalo de tempo para meses ou anos
+
+    while(True):
+
+        displayMenu()
+        command = testValidInput(1, 2)
+
+        if command == 1:
+            multiplicador = 1
+            tipoIntervalo = 'meses'
+            break
+
+        elif command == 2:
+            multiplicador = 12
+            tipoIntervalo = 'anos'
+            break
+
+    while(True):
+
+        displayHeader()
+        print(f"Selecione de hoje até quantos {tipoIntervalo} atrás devem ser os dados a serem analisados:")
+        print("Se deseja analisar os dados desde o começo digite um número negativo")
+
+        valor = input() # Recebemos o comando do cmd
+
+        # Testamos se o valor colocado é válido, ignorando o possível sinal negativo '-'
+        if (valor.strip('-')).isnumeric():
+            return int(valor) * multiplicador # Retornamos o tamanho do intervalo, aplicado a conversão se necessário
+
+        else:
+            print("\nComando inválido, Tente novamente\n")
+            sleep(1.5)  # Aguardamos 3 segundos para que o texto possa ser lido
+    
+
 # Função que implementa a interface de análise
 
 
@@ -54,11 +105,18 @@ def analysisMenu():
         return
 
     get_files.should_update()
+
+    intervaloDatas = selectDateInterval() # Selecionamos o intervalo dos dados a serem considerados
     displayHeader() 
 
     print("O programa está carregando a base de dados, por favor aguarde")
     # Criamos o dataframe através dos dados baixados
-    dataframe = analysis.selectDateInterval(webscrap.extractData(), 12, 0)
+    dataframe = webscrap.extractData()
+
+    # Se desejamos escolher um intervalo específico de tempo dos dados
+    if intervaloDatas > 0:
+        dataframe = analysis.selectDateInterval(dataframe, intervaloDatas)
+
     while(True):
 
         displayMenu()
