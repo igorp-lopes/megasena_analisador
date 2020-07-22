@@ -1,6 +1,7 @@
 import get_files
 import webscrap
 import analysis
+import combinations
 from time import sleep
 from utilities import displayHeader, testValidInput
 
@@ -62,7 +63,7 @@ def combinationsMenu():
         command = testValidInput(1, 3)
 
         if command == 1:
-            pass
+            combinations.randomComb()
 
         elif command == 2:
             pass
