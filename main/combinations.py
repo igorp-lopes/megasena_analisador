@@ -22,21 +22,20 @@ def generateRandomNumbers(total):
 # Função que gera uma combinação de 6 números aleatórios para mega sena
 def randomComb():
 
+    numErrMes = "\nNúmero inválido, tente novamente\n" # Mensagem de erro especial para número inválido
+
     while(True):
         displayHeader()
         print("Digite quantos números aleatórios você quer na combinação (máximo 20)")
 
+        # Testamos se o número da entrada é válido
+        totComb = testValidInput(1,20, numErrMes)
 
-        try:
-            totComb = int(input()) # Recebemos quantos número aleatórios devemos gerar
-            assert(totComb <= 20) # Testamos se o valor recebido é válido
-
-            randNums = generateRandomNumbers(totComb) # Gereamos os números aleatórios
+        # Se a entrada é válida
+        if(totComb):
             break
-            
-        except:
-            print("\nNúmero inválido, tente novamente\n")
-            sleep(1.5)  # Aguardamos 3 segundos para que o texto possa ser lido
+
+    randNums = generateRandomNumbers(totComb) # Gereamos os números aleatórios
 
     # Exibimos ao usuários os números gerados
     displayHeader()
@@ -47,7 +46,5 @@ def randomComb():
     input()
 
     return
-
-
 
 
