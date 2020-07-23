@@ -77,8 +77,14 @@ def userDefComb():
 
         # Se a entrada é válida
         if num:
-            vetNums.append(num) # Salvamos o número no vetor
-            i += 1 # Incrementamos o contador
+            
+            if num not in vetNums:
+                vetNums.append(num) # Salvamos o número no vetor
+                i += 1 # Incrementamos o contador
+            else:
+                print("O número já foi selecionado anteriormente, tente outro valor")
+                print("Pressione enter para continuar")
+                input()
 
     
     while(True):
