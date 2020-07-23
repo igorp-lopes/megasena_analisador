@@ -1,6 +1,7 @@
 import get_files
 import webscrap
 import analysis
+import combinations
 from time import sleep
 from utilities import displayHeader, testValidInput
 
@@ -20,14 +21,15 @@ def mainInterface():
         print("Para acessar a funcionalidade desejada, digite o número da opção e confirme com a tecla 'enter'\n")
         print("(1) - Análisar resultados")
         print("(2) - Atualizar banco de dados")
-        print("(3) - Sair")
+        print("(3) - Gerar combinações")
+        print("(4) - Sair")
 
         return
 
     while(True):
         
         displayMenu()
-        command = testValidInput(1, 3)
+        command = testValidInput(1, 4)
 
         if command == 1:
             analysisMenu()  # Vamos para o menu de análises
@@ -35,9 +37,39 @@ def mainInterface():
             get_files.obtainData()  # Baixamos os dados mais recentes
 
         elif command == 3:
+            combinationsMenu() # Vamos para o menu de combinações
+
+        elif command == 4:
             break
 
     return
+
+# Função que implementa a interface de formação de combinações
+def combinationsMenu():
+
+    # Função que exibe o menu principal
+    def displayMenu():
+
+        displayHeader()  # Mostramos o cabeçalho
+        print("(1) - Combinações aleatórias")
+        print("(2) - Combinações com números específicos")
+        print("(3) - Voltar ")
+
+        return
+
+    while(True):
+
+        displayMenu()
+        command = testValidInput(1, 3)
+
+        if command == 1:
+            combinations.randomComb()
+
+        elif command == 2:
+            combinations.userDefComb()
+
+        elif command == 3:
+            break
 
 # Função que implementa o menu de seleção do tipo de intervalo de datas para realizar a análise
 def selectDateInterval():
