@@ -66,7 +66,7 @@ def combinationsMenu():
             combinations.randomComb()
 
         elif command == 2:
-            pass
+            combinations.userDefComb()
 
         elif command == 3:
             break
