@@ -22,7 +22,7 @@ def extractData(): # Função que extrai os dados da webpage
     website = loadPage() # Carregamos a webpage com os dados
     table = website.find('table') # Separamos a tabela da página
     
-    tempDf = pd.read_html(str(table)) # Transformamos a tabela em um dataframe
+    tempDf = pd.read_html(str(table), skiprows = [i for i in range(7,21)]) # Transformamos a tabela em um dataframe
 
     dfTable = tempDf[0]
 
@@ -30,10 +30,8 @@ def extractData(): # Função que extrai os dados da webpage
 
     # Armazenamos apenas as colunas da tabela que nos interessam
     df = dfTable[ ["Concurso", 'Data Sorteio', '1ª Dezena', '2ª Dezena', '3ª Dezena', '4ª Dezena', '5ª Dezena', 
-    '6ª Dezena', 'Ganhadores_Sena', 'Rateio_Sena', 'Acumulado', 'Valor_Acumulado']]
+    '6ª Dezena']]
 
-    # Alteramos o nome de algumas colunas
-    df.rename(columns={'Ganhadores_Sena': 'Número de Ganhadores', 'Valor_Acumulado': 'Valor Acumulado', 'Rateio_Sena': 'Rateio'}, inplace=True)
 
     df['Data Sorteio']= pd.to_datetime(df['Data Sorteio'], format = '%d/%m/%Y') # Passamos os dados da coluna das datas para o tipo datetime
     df['Data Sorteio'] = df['Data Sorteio'].dt.date # Guardamos apenas a parte das datas do tipo datetime

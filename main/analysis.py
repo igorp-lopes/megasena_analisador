@@ -29,7 +29,7 @@ def selectDateInterval(dataframe, timeAgo):
 def findRecurrency(option, dataframe):
 
     # Selecionamos apenas as colunas que indicam os números sorteados
-    dataframe = dataframe.iloc[:, 2:8]
+    dataframe = dataframe.iloc[:, 2:]
 
     # Series que armazenará o total de ocorrências de cada número
     ocurr = pd.Series([])
