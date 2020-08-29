@@ -27,7 +27,7 @@ def mainInterface():
         return
 
     while(True):
-        
+
         displayMenu()
         command = testValidInput(1, 4)
 
@@ -37,7 +37,7 @@ def mainInterface():
             get_files.obtainData()  # Baixamos os dados mais recentes
 
         elif command == 3:
-            combinationsMenu() # Vamos para o menu de combinações
+            combinationsMenu()  # Vamos para o menu de combinações
 
         elif command == 4:
             break
@@ -45,6 +45,8 @@ def mainInterface():
     return
 
 # Função que implementa a interface de formação de combinações
+
+
 def combinationsMenu():
 
     # Função que exibe o menu principal
@@ -72,8 +74,10 @@ def combinationsMenu():
             break
 
 # Função que implementa o menu de seleção do tipo de intervalo de datas para realizar a análise
+
+
 def selectDateInterval():
-    
+
     def displayMenu():
 
         displayHeader()  # Exibimos o cabeçalho
@@ -87,7 +91,7 @@ def selectDateInterval():
 
         return
 
-    multiplicador = 1 # Variável que ajusta o intervalo de tempo para meses ou anos
+    multiplicador = 1  # Variável que ajusta o intervalo de tempo para meses ou anos
 
     while(True):
 
@@ -107,19 +111,21 @@ def selectDateInterval():
     while(True):
 
         displayHeader()
-        print(f"Selecione de hoje até quantos {tipoIntervalo} atrás devem ser os dados a serem analisados:")
+        print(
+            f"Selecione de hoje até quantos {tipoIntervalo} atrás devem ser os dados a serem analisados:")
         print("Se deseja analisar os dados desde o começo digite um número negativo")
 
-        valor = input() # Recebemos o comando do cmd
+        valor = input()  # Recebemos o comando do cmd
 
         # Testamos se o valor colocado é válido, ignorando o possível sinal negativo '-'
         if (valor.strip('-')).isnumeric():
-            return int(valor) * multiplicador # Retornamos o tamanho do intervalo, aplicado a conversão se necessário
+            # Retornamos o tamanho do intervalo, aplicado a conversão se necessário
+            return int(valor) * multiplicador
 
         else:
             print("\nComando inválido, Tente novamente\n")
             sleep(1.5)  # Aguardamos 3 segundos para que o texto possa ser lido
-    
+
 
 # Função que implementa a interface de análise
 
@@ -138,8 +144,9 @@ def analysisMenu():
 
     get_files.should_update()
 
-    intervaloDatas = selectDateInterval() # Selecionamos o intervalo dos dados a serem considerados
-    displayHeader() 
+    # Selecionamos o intervalo dos dados a serem considerados
+    intervaloDatas = selectDateInterval()
+    displayHeader()
 
     print("O programa está carregando a base de dados, por favor aguarde")
     # Criamos o dataframe através dos dados baixados
@@ -172,8 +179,8 @@ def recurrencyMenu(dataframe):
 
         displayHeader()  # Exibimos o cabeçalho
 
-        print("(1) - Exibir os 6 números mais sorteados")
-        print("(2) - Exibir os 6 números menos sorteados")
+        print("(1) - Exibir os números sorteados por ordem decrescente de vezes sorteadas")
+        print("(2) - Exibir os números sorteados por ordem crescente de vezes sorteadas")
         print("(3) - Ver a recorrência de um número específico")
         print("(4) - Voltar")
 
@@ -214,7 +221,7 @@ def dateMenu(dataframe):
         command = testValidInput(1, 4)
 
         if command == 1:
-            analysis.dateAnalysis("Specific Number",dataframe)
+            analysis.dateAnalysis("Specific Number", dataframe)
         elif command == 2:
             analysis.dateAnalysis("Most Recent", dataframe)
         elif command == 3:

@@ -90,9 +90,9 @@ def findRecurrency(option, dataframe):
             dfOcorr.sort_values('% Total', inplace=True, ascending=True)
 
         # Exibimos os 6 números mais/menos recorrentes
-        print(f"Os números {option} são:")
-        for num, ocorr in (dfOcorr.iloc[:6, 0]).items():
-            print(f"{num} - foi sorteado {int(ocorr)} vezes\n")
+        print(f"Os números {option} são:\n")
+        for num, ocorr in (dfOcorr.iloc[:, 0]).items():
+            print(f"{num} - sorteado {int(ocorr)} vezes\n")
 
         print("Pressione enter para continuar\n")
         input()
