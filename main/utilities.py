@@ -19,14 +19,14 @@ def displayHeader():
 # Função que testa se a entrada é válida
 
 
-def testValidInput(first_opt, last_opt):
+def testValidInput(first_opt, last_opt, errorMessage = "\nComando inválido, Tente novamente\n"):
 
     try:
         command = int(input())  # Recebemos o comando do cmd
         # Testamos se o comando é válido
         assert(first_opt <= command <= last_opt)
     except:
-        print("\nComando inválido, Tente novamente\n")
+        print(errorMessage)
         sleep(1.5)  # Aguardamos 3 segundos para que o texto possa ser lido
         return ""
 

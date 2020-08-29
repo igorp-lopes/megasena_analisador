@@ -7,12 +7,9 @@ from dateutil.relativedelta import relativedelta
 import itertools
 from utilities import displayHeader, testValidInput
 
-def selectDateInterval(dataframe, timeAgo, option):
+def selectDateInterval(dataframe, timeAgo):
 
     endInter = datetime.now()  # Salvamos a data atual como o final do intervalo
-
-    if option == 'Anos':  # Se a opção escolhida é de trabalhar com o tempo em anos
-        timeAgo *= 12  # Transformamos a escala de tempo de anos para meses
 
     # Subtraimos da data atual o tempo desejado
     startInter = endInter - relativedelta(months=timeAgo)
@@ -32,7 +29,7 @@ def selectDateInterval(dataframe, timeAgo, option):
 def findRecurrency(option, dataframe):
 
     # Selecionamos apenas as colunas que indicam os números sorteados
-    dataframe = dataframe.iloc[:, 2:8]
+    dataframe = dataframe.iloc[:, 2:]
 
     # Series que armazenará o total de ocorrências de cada número
     ocurr = pd.Series([])
@@ -93,9 +90,9 @@ def findRecurrency(option, dataframe):
             dfOcorr.sort_values('% Total', inplace=True, ascending=True)
 
         # Exibimos os 6 números mais/menos recorrentes
-        print(f"Os números {option} são:")
-        for num, ocorr in (dfOcorr.iloc[:6, 0]).items():
-            print(f"{num} - foi sorteado {int(ocorr)} vezes\n")
+        print(f"Os números {option} são:\n")
+        for num, ocorr in (dfOcorr.iloc[:, 0]).items():
+            print(f"{num} - sorteado {int(ocorr)} vezes\n")
 
         print("Pressione enter para continuar\n")
         input()
@@ -184,9 +181,10 @@ def dateAnalysis(option,dataframe):
             # Obtemos as datas das ocorrências mais recente e mais nova do número atual
             dataNov, dataAnt = findDateOcurr(number, dataframe)
 
-            numDates = ocurrDates(number, dataNov, dataAnt) # Instanciamos um objeto para guardar as datas
-
-            listDate.append(numDates) # Salvamos o objeto na lista
+            # Se houve ocorrência do número
+            if dataNov != None:
+                numDates = ocurrDates(number, dataNov, dataAnt) # Instanciamos um objeto para guardar as datas
+                listDate.append(numDates) # Salvamos o objeto na lista
 
         displayHeader()
 
