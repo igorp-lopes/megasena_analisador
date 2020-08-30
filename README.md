@@ -1,16 +1,17 @@
-# Megasena Analisador
+# Megasena Analisador - V 1.0
 Programa que coleta dados da Mega Sena e oferece diversas informações e análises a respeito destes.
+  
+Funcionalidades:
+  - Interface pelo prompt de comando
+  - Baixa automaticanente os resultados da Mega Sena pelo site oficial do sorteio.
+  - Possibilidade de selecionar o intervalo de tempo dos dados (em meses ou anos).
+  - Ordena (crescente ou decrescente) e informa os números sorteados de acordo com a quantidade de vezes que eles foram sorteados.
+  - Ordena e informa os números de acordo com quando foram sorteados pela primeira vez.
+  - Ordena e informa os números de acordo com quando foram sorteados pela última vez.
+  - Criar combinações aleatórias de números (até 20 números).
+  - Criar combinações N à M (até 20 números) nas quais o usuário determina N e M.
+  
+Funcionalidades planejadas:
+  - Exportar os resultados para arquivos .csv.
+  - Interface GUI.
 
-Progresso da aplicação:
-  - Baixar automaticamente os dados mais recentes da Mega Sena -> (100%);
-  - Extrair os dados relevantes da tabela html baixada -> (100%);
-  - Interface cmd para interação com o programa -> (40%);
-  - Selecionar dados apenas de um intervalo de tempo específico -> (70%);
-  - Análisar a frequência de um número específico -> (100%);
-  - Determinar os 6 números mais recorrentes -> (100%);
-  - Determinar os 6 números menos frequentes -> (100%);
-  - Identificar números que não foram sorteados -> (100%);
-  - Análisar as datas da primeira e da última ocorrência de um número específico -> (100%);
-  - Ordenar todos os números sorteados de acordo com a data da primeira ocorrência destes -> (100%);
-  - Ordenar todos os números sorteados de acordo com a data da última ocorrência destes -> (100%);
-  - Determinar o todas as diferentes combinções de N números em I posições distintas -> (0%);
