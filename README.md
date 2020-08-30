@@ -15,3 +15,5 @@ Funcionalidades planejadas:
   - Exportar os resultados para arquivos .csv.
   - Interface GUI.
 
+Todos os dados utilizados nesse programa são públicos e foram extraídos do site oficial da caixa economica, realizadora dos sorteios da mega sena obtidos no seguinte site: http://loterias.caixa.gov.br/wps/portal/loterias/landing/megasena/
+
