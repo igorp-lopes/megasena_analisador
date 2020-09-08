@@ -5,8 +5,15 @@ from time import sleep
 
 
 def displayHeader():
+
+    # Determinamos qual a plataforma em que o programa está sendo utilizado
+    plataform = os.name
+    
+    # De acordo com a plataforma, determinamos qual o comando de limpar o terminal, 'cls' se windows e 'clear' para linux/mac
+    command = "cls" if plataform == "nt" else "clear"
+
     # Limpa o terminal e mostra o cabeçalho
-    os.system('clear')
+    os.system(command)
 
     print("\t**********************************************")
     print("\t***        Analisador Mega Sena            ***")
